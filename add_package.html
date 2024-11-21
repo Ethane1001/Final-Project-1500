@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Package | ShippingSite</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Add Package</h1>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('track_package') }}">Track Package</a></li>
+                <li><a href="{{ url_for('pay_bill') }}">Pay Bill</a></li>
+                
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="form-container">
+            <h2>Enter Package Details</h2>
+            <form action="{{ url_for('add_package') }}" method="POST">
+                <div class="form-group">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="Enter first name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" placeholder="Enter last name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number:</label>
+                    <input type="text" id="phone_number" name="phone_number" placeholder="123-456-7890" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="example@domain.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" placeholder="123 Main St, City, State" required>
+                </div>
+                <div class="form-group">
+                    <label for="dimensions">Dimensions (LxWxH):</label>
+                    <input type="text" id="dimensions" name="dimensions" placeholder="e.g., 10x5x2" required>
+                </div>
+                <div class="form-group">
+                    <label for="weight">Weight (lbs):</label>
+                    <input type="number" id="weight" name="weight" step="0.1" placeholder="Enter weight" required>
+                </div>
+                <div class="form-group">
+                    <label for="distance">Distance (miles):</label>
+                    <input type="number" id="distance" name="distance" step="0.1" placeholder="Enter distance" required>
+                </div>
+                <button type="submit" class="btn-primary">Add Package</button>
+            </form>
+        </section>
+        {% if package_id %}
+        <section class="package-id-container">
+            <h2>Package Created Successfully!</h2>
+            <p>Your Package ID is: <strong>{{ package_id }}</strong></p>
+        </section>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2024 ShippingSite | All Rights Reserved</p>
+    </footer>
+</body>
+</html>

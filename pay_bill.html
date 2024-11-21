@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Bills | ShippingSite</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>Pay Your Bills</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                <li><a href="{{ url_for('add_package') }}">Add Package</a></li>
+                <li><a href="{{ url_for('track_package') }}">Track Package</a></li>
+                <li><a href="{{ url_for('pay_bill') }}">Pay Bills</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Enter Package ID to View Outstanding Bills</h2>
+
+            <!-- Form to Enter Package ID -->
+            <form method="GET" action="{{ url_for('pay_bill') }}">
+                <div class="form-group">
+                    <label for="package_id">Package ID:</label>
+                    <input type="text" id="package_id" name="package_id" required>
+                    <button type="submit">View Bills</button>
+                </div>
+            </form>
+
+            {% if bills is not none %}
+                <h2>Outstanding Bills</h2>
+                {% if bills %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Billing ID</th>
+                            <th>Customer Name</th>
+                            <th>Amount Due</th>
+                            <th>Payment Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for bill in bills %}
+                        <tr>
+                            <td>{{ bill.billing_id }}</td>
+                            <td>{{ bill.first_name }} {{ bill.last_name }}</td>
+                            <td>${{ bill.amount_due }}</td>
+                            <td>{{ bill.payment_date or 'Pending' }}</td>
+                            <td>
+                                {% if not bill.payment_date %}
+                                <form method="POST" action="{{ url_for('pay_bill') }}">
+                                    <input type="hidden" name="billing_id" value="{{ bill.billing_id }}">
+                                    <input type="hidden" name="package_id" value="{{ package_id }}">
+                                    <button type="submit">Pay Now</button>
+                                </form>
+                                {% else %}
+                                <span>Paid</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                <p>No outstanding bills found for Package ID: {{ package_id }}</p>
+                {% endif %}
+            {% endif %}
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ShippingSite | All Rights Reserved</p>
+    </footer>
+</body>
+
+</html>

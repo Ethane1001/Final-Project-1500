@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Customer Inquiries | ShippingSite</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #343a40;
+            padding: 1rem;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #007bff;
+        }
+
+        main {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .content-card {
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            margin: 1rem auto;
+            max-width: 800px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: left;
+        }
+
+        form {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        table th,
+        table td {
+            padding: 15px;
+            border: 1px solid #dddddd;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #343a40;
+            color: white;
+            margin-top: 2rem;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Customer Inquiries</h1>
+        <p>Manage and respond to customer inquiries effectively.</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            
+        </ul>
+    </nav>
+
+    <main>
+        <div class="content-card">
+            <!-- Employee ID Form -->
+            {% if not session.employee_id %}
+            <form method="POST" action="{{ url_for('view_inquiries') }}">
+                <label for="employee_id">Employee ID:</label>
+                <input type="text" id="employee_id" name="employee_id" required>
+                <button type="submit">Access Inquiries</button>
+            </form>
+            {% endif %}
+
+            <!-- Inquiries Table, Display Only if Employee is Logged In -->
+            {% if session.employee_id %}
+            <h2>Customer Inquiries</h2>
+            <a href="{{ url_for('submit_inquiry') }}" class="back-link">Submit New Inquiry</a>
+
+            {% if inquiries %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Inquiry ID</th>
+                        <th>Customer</th>
+                        <th>Inquiry Information</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for inquiry in inquiries %}
+                    <tr>
+                        <td>{{ inquiry.inquiry_id }}</td>
+                        <td>{{ inquiry.first_name }} {{ inquiry.last_name }}</td>
+                        <td>{{ inquiry.inquiry_information }}</td>
+                        <td>{{ inquiry.inquiry_status }}</td>
+                        <td>
+                            {% if inquiry.inquiry_status != 'Resolved' %}
+                            <a href="{{ url_for('respond_inquiry', inquiry_id=inquiry.inquiry_id) }}">Respond</a>
+                            {% else %}
+                            <span>Resolved</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p>No inquiries found.</p>
+            {% endif %}
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 ShippingSite | All rights reserved. | <a href="/privacy-policy" style="color: #fff;">Privacy Policy</a></p>
+    </footer>
+</body>
+
+</html>

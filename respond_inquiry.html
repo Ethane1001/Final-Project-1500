@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Respond to Inquiry</title>
+</head>
+<body>
+    <h1>Respond to Inquiry</h1>
+    <form method="POST">
+        <p><strong>Inquiry Information:</strong> {{ inquiry_info.inquiry_information }}</p>
+        <p><strong>Status:</strong> {{ inquiry_info.inquiry_status }}</p>
+        <p><strong>Customer:</strong> {{ inquiry_info.first_name }} {{ inquiry_info.last_name }}</p>
+        <label for="employee_id">Employee ID:</label>
+        <input type="text" name="employee_id" id="employee_id" required><br>
+        <label for="response">Response:</label>
+        <textarea name="response" id="response" required></textarea><br>
+        <button type="submit">Submit Response</button>
+    </form>
+</body>
+</html>

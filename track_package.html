@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Package | ShippingSite</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>Track Your Package</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('add_package') }}">Add Package</a>
+            <a href="{{ url_for('pay_bill') }}">Pay Bill</a>
+        </nav>
+    </header>
+    <main>
+        <section class="form-container">
+            <h2>Enter Your Package ID</h2>
+            <form action="{{ url_for('track_package') }}" method="POST">
+                <div class="form-group">
+                    <label for="package_id">Package ID:</label>
+                    <input type="text" id="package_id" name="package_id" required>
+                </div>
+                <button type="submit" class="btn-primary">Track Package</button>
+            </form>
+        </section>
+        {% if package_info %}
+        <section class="package-details">
+            <h2>Package Details</h2>
+            <p><strong>Package ID:</strong> {{ package_info.package_id }}</p>
+            <p><strong>Status:</strong> {{ package_info.status }}</p>
+            <p><strong>Obtained Date:</strong> {{ package_info.package_obtained_date }}</p>
+            <p><strong>Delivery Date:</strong> {{ package_info.delivery_date or 'Not Assigned' }}</p>
+        </section>
+        {% endif %}
+    </main>
+    <footer>
+        <p>&copy; 2024 ShippingSite | All Rights Reserved</p>
+    </footer>
+</body>
+</html>
+

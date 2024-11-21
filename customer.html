@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px 10px;
+            text-align: center;
+        }
+        nav {
+            display: flex;
+            justify-content: center;
+            background: #333;
+            padding: 10px;
+        }
+        nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        nav a:hover {
+            color: #4CAF50;
+        }
+        main {
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .dashboard-section {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .dashboard-section h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        .button:hover {
+            background-color: #45a049;
+        }
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            color: white;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Customer Dashboard</h1>
+    </header>
+    <nav>
+        <a href="{{ url_for('track_package') }}">Track Package</a>
+        <a href="{{ url_for('update_profile') }}">Update Profile</a>
+        <a href="{{ url_for('reschedule_delivery') }}">Reschedule Delivery</a>
+        <a href="{{ url_for('billing') }}">Billing Details</a>
+        <a href="{{ url_for('feedback') }}">Submit Feedback</a>
+    </nav>
+    <main>
+        <section class="dashboard-section">
+            <h2>Your Packages</h2>
+            <p>Track and manage your active shipments.</p>
+            <a class="button" href="{{ url_for('track_package') }}">Track Packages</a>
+        </section>
+
+        <section class="dashboard-section">
+            <h2>Profile Management</h2>
+            <p>Update your contact details, shipping preferences, and more.</p>
+            <a class="button" href="{{ url_for('update_profile') }}">Update Profile</a>
+        </section>
+
+        <section class="dashboard-section">
+            <h2>Delivery Scheduling</h2>
+            <p>Reschedule your deliveries for a convenient time.</p>
+            <a class="button" href="{{ url_for('reschedule_delivery') }}">Reschedule Delivery</a>
+        </section>
+
+        <section class="dashboard-section">
+            <h2>Billing and Payments</h2>
+            <p>View and pay your bills securely.</p>
+            <a class="button" href="{{ url_for('billing') }}">View Billing Details</a>
+        </section>
+
+        <section class="dashboard-section">
+            <h2>Feedback</h2>
+            <p>Help us improve by submitting your feedback.</p>
+            <a class="button" href="{{ url_for('feedback') }}">Submit Feedback</a>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 ShippingSite. All rights reserved.</p>
+    </footer>
+</body>
+</html>

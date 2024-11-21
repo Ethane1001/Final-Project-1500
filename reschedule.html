@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reschedule Delivery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1>Reschedule Your Delivery</h1>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('add_package') }}">Add Package</a></li>
+                    <li><a href="{{ url_for('track_package') }}">Track Package</a></li>
+                    <li><a href="{{ url_for('employee_dashboard') }}">Employee Dashboard</a></li>
+                    <li><a href="{{ url_for('generate_reports') }}">Reports</a></li>
+                    <li><a href="{{ url_for('user_feedback') }}">Feedback</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="form-section">
+            <h2>Update Your Delivery Date</h2>
+            <p>We understand plans change! Use the form below to select a new delivery date for your package.</p>
+            
+            <form action="{{ url_for('reschedule_delivery') }}" method="POST" class="reschedule-form">
+                <div class="form-group">
+                    <label for="package_id">Package ID:</label>
+                    <input type="text" id="package_id" name="package_id" placeholder="Enter your Package ID" required>
+                </div>
+                <div class="form-group">
+                    <label for="new_date">New Delivery Date:</label>
+                    <input type="date" id="new_date" name="new_date" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-button">Submit</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="instructions-section">
+            <h2>Need Help?</h2>
+            <p>If you're unsure about your Package ID or have trouble rescheduling, feel free to reach out to our <a href="{{ url_for('help_support') }}">Help Support</a> team. We're here to assist you!</p>
+        </section>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <p>&copy; 2024 ShippingSite | All Rights Reserved</p>
+            <div class="social-media">
+                <a href="#"><img src="{{ url_for('static', filename='images/facebook-icon.png') }}" alt="Facebook"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/twitter-icon.png') }}" alt="Twitter"></a>
+                <a href="#"><img src="{{ url_for('static', filename='images/linkedin-icon.png') }}" alt="LinkedIn"></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
